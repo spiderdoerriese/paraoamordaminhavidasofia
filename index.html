@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para o Amor da Minha Vida ❤️</title>
+
+  <meta property="og:title" content="Uma surpresa pra você ❤️">
+  <meta property="og:description" content="Um pequeno site feito com muito amor 💕">
+  <meta property="og:type" content="website">
+
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: linear-gradient(135deg, #ff9a9e, #fad0c4); color: #fff; text-align: center; }
+    .container { padding: 50px 20px; }
+    h1 { font-size: 3em; }
+    p { font-size: 1.3em; max-width: 600px; margin: 20px auto; }
+
+    button { padding: 15px 25px; font-size: 1.2em; border: none; border-radius: 25px; background-color: #fff; color: #ff5e78; cursor: pointer; transition: 0.3s; margin: 10px; }
+    button:hover { background-color: #ff5e78; color: #fff; }
+
+    .hidden-message { display: none; margin-top: 30px; font-size: 1.5em; animation: fadeIn 1.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+    .heart { position: absolute; color: red; font-size: 20px; animation: fall linear infinite; }
+    @keyframes fall { to { transform: translateY(100vh); opacity: 0; } }
+
+    footer { margin-top: 40px; font-size: 0.9em; opacity: 0.8; }
+
+    #pedido { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; }
+    #pedido .box { background: #fff; color: #333; padding: 30px; border-radius: 20px; text-align: center; position: relative; }
+
+    #btnNao { position: relative; }
+
+    .confetti { position: fixed; width: 8px; height: 12px; top: -10px; opacity: 0.9; animation: confall linear forwards; }
+    @keyframes confall { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+
+    #contador { margin-top: 20px; font-size: 1.4em; }
+
+    #certificado {
+      display: none;
+      margin: 30px auto;
+      padding: 30px;
+      max-width: 600px;
+      background: #fff;
+      color: #333;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s;
+    }
+
+    .nome-digitando {
+      border-right: 2px solid #333;
+      padding-right: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>❤️ Para Você Sofia ❤️</h1>
+    <p>
+      Amor desde o primeiro dia que a gente começou a conversar eu já sentia algo diferente por você.
+      Você é incrível, perfeita, carinhosa e muito amorosa e entre outras milhões de qualidades que você tem.
+      Eu quero me casar com você!!
+    </p>
+
+    <button onclick="abrirPedido()">Clique aqui 💖</button>
+    <button onclick="tocarMusica()">Tocar nossa música 🎶</button>
+
+    <div class="hidden-message" id="mensagemFinal">
+      Agora é oficial 💍❤️<br>
+      Prometo cuidar de você, te fazer sorrir e construir uma história linda ao seu lado. Eu te amo infinito! 💕
+    </div>
+
+    <div id="contador"></div>
+
+    <div id="certificado">
+      <h2>💌 Certificado de Namoro 💌</h2>
+      <p>Declaro oficialmente que <span id="nomeNamorada" class="nome-digitando"></span> aceitou namorar comigo ❤️</p>
+      <p>Data de início: <span id="dataInicio"></span></p>
+      <p>Que esse amor dure para sempre 💕</p>
+    </div>
+
+    <audio id="musica" loop>
+      <source src="Cris MJ - Polémica (Video Oficial) - Cris MJ (youtube).mp3" type="audio/mpeg">
+    </audio>
+
+    <footer>Feito com todo o meu ❤️ especialmente para você meu Amor</footer>
+  </div>
+
+  <div id="pedido">
+    <div class="box" id="boxPedido">
+      <h2>Você aceita namorar comigo? 💖</h2>
+      <button onclick="aceitou('Sim')">Sim 😍</button>
+      <button onclick="aceitou('Claro')">Claro ❤️</button>
+      <button id="btnNao" onmouseover="fugir()" onclick="nao()">Não 😅</button>
+    </div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    let inicioRelacionamento = null;
+    const nome = "Sofia";
+
+    function abrirPedido() { document.getElementById('pedido').style.display = 'flex'; }
+
+    function aceitou(opcao) {
+      confete();
+      inicioRelacionamento = new Date();
+      localStorage.setItem('dataNamoro', inicioRelacionamento);
+
+      setTimeout(() => {
+        alert('Eu sabia que você ia dizer ' + opcao + '! 😍💖');
+        document.getElementById('pedido').style.display = 'none';
+        document.getElementById('mensagemFinal').style.display = 'block';
+        document.getElementById('certificado').style.display = 'block';
+        document.getElementById('dataInicio').innerText = inicioRelacionamento.toLocaleDateString();
+        escreverNome();
+        atualizarContador();
+        setInterval(atualizarContador, 1000);
+      }, 300);
+    }
+
+    function escreverNome() {
+      const el = document.getElementById('nomeNamorada');
+      let i = 0;
+      const intervalo = setInterval(() => {
+        el.textContent += nome[i];
+        i++;
+        if (i >= nome.length) clearInterval(intervalo);
+      }, 150);
+    }
+
+    function atualizarContador() {
+      let inicio = new Date(localStorage.getItem('dataNamoro'));
+      let agora = new Date();
+      let diff = agora - inicio;
+
+      let dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      let horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      let minutos = Math.floor((diff / (1000 * 60)) % 60);
+      let segundos = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('contador').innerText = `Estamos juntos há ${dias} dias, ${horas}h ${minutos}m ${segundos}s ❤️`;
+    }
+
+    function nao() { alert('Essa opção não existe 😜❤️'); }
+
+    function fugir() {
+      const btn = document.getElementById('btnNao');
+      const box = document.getElementById('boxPedido');
+      const maxX = box.clientWidth - btn.offsetWidth - 20;
+      const maxY = box.clientHeight - btn.offsetHeight - 20;
+      btn.style.position = 'absolute';
+      btn.style.left = Math.random() * maxX + 'px';
+      btn.style.top = Math.random() * maxY + 'px';
+    }
+
+    function tocarMusica() { document.getElementById('musica').play(); }
+
+    function criarCoracoes() {
+      const container = document.getElementById('hearts');
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }, 300);
+    }
+
+    function confete() {
+      for (let i = 0; i < 120; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.background = `hsl(${Math.random()*360}, 90%, 60%)`;
+        c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }
+    }
+
+    criarCoracoes();
+  </script>
+
+</body>
+</html>

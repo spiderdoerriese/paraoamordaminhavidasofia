@@ -161,7 +161,13 @@
       btn.style.top = Math.random() * maxY + 'px';
     }
 
-    function tocarMusica() { document.getElementById('musica').play(); }
+  function tocarMusica() {
+    const musica = document.getElementById('musica');
+    musica.volume = 0.5;
+    musica.play().catch(() => {
+    alert('Clique novamente para tocar a música 🎶');
+  });
+}
 
     function criarCoracoes() {
       const container = document.getElementById('hearts');
